@@ -39,7 +39,7 @@ export default function Home() {
           <Label htmlFor="fuelPrice">Preço do combustível (R$)</Label>
           <Input
             type="number"
-            className="outline-none border-none bg-gray-800 bg-opacity-50"
+            className="outline-none border-none bg-gray-800 bg-opacity-50 text-white"
             id="fuelPrice"
             value={fuelPrice}
             onChange={(e) => setFuelPrice(e.target.value)}
@@ -51,7 +51,7 @@ export default function Home() {
           <Input
             type="number"
             id="consumption"
-            className="outline-none border-none bg-gray-800 bg-opacity-50"
+            className="outline-none border-none bg-gray-800 bg-opacity-50 text-white"
             value={consumption}
             onChange={(e) => setConsumption(e.target.value)}
             placeholder="Consumo ex: 10 (km/L)"
@@ -61,7 +61,7 @@ export default function Home() {
           <Label htmlFor="distance">Distância percorrida (km)</Label>
           <Input
             type="number"
-            className="outline-none border-none bg-gray-800 bg-opacity-50"
+            className="outline-none border-none bg-gray-800 bg-opacity-50 text-white"
             id="distance"
             value={distance}
             onChange={(e) => setDistance(e.target.value)}
