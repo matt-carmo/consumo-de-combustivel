@@ -1,101 +1,85 @@
+
+'use client'
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
 import Image from "next/image";
+import { useState } from "react";
+
+
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [fuelPrice, setFuelPrice] = useState('');
+  const [consumption, setConsumption] = useState('');
+  const [distance, setDistance] = useState('');
+  const [totalCost, setTotalCost] = useState('');
+ 
+  const [error, setError] = useState('');
+  const calcularGasto = () => {
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    if (!fuelPrice || !consumption || !distance) {
+      setTotalCost('');
+      setError('Por favor, preencha todos os campos.');
+      return;
+    }
+
+    setError('');
+    const totalLitros = parseFloat(distance) / parseFloat(consumption);
+    const total: number = totalLitros * parseFloat(fuelPrice);
+    setTotalCost(total.toFixed(2));
+  };
+  return (
+    <>
+    <main className="bg max-w-screen-md mx-auto px-10">
+      <h1 className="font-semibold text-center mt-10 text-xl text-">
+        Calcular consumo de combustível
+      </h1>
+      <section className="mt-6 flex flex-col gap-3">
+        <div>
+          <Label htmlFor="fuelPrice">Preço do combustível (R$)</Label>
+          <Input
+            type="number"
+            id="fuelPrice"
+            value={fuelPrice}
+            onChange={(e) => setFuelPrice(e.target.value)}
+            placeholder="Preço por litro ex: 5.49"
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+        <div>
+          <Label htmlFor="consumption">Média de consumo</Label>
+          <Input
+            type="number"
+            id="consumption"
+            value={consumption}
+            onChange={(e) => setConsumption(e.target.value)}
+            placeholder="Consumo ex: 10 (km/L)"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+        </div>
+        <div>
+          <Label htmlFor="distance">Distância percorrida (km)</Label>
+          <Input
+            type="number"
+            id="distance"
+            value={distance}
+            onChange={(e) => setDistance(e.target.value)}
+            placeholder="Kilometragem ex: 150"
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </div>
+        <Button className="w-full mt-2" onClick={calcularGasto}>Calcular</Button>
+
+        {error && <p className="text-red-400">{error}</p>}
+
+        {totalCost && (
+        <div className="result">
+          <h2 className="text-md font-medium">Você gastou: <span className="text-green-500 font-semibold text-lg">R$ {totalCost}</span> de combustível</h2>
+        </div>
+      )}
+      </section>
+    </main>
+    <footer className="fixed bottom-4 w-full text-center border-t border-opacity-15 border-gray-600 pt-4">
+      <p className="text-center text-sm font-light">Make with ❤️ by <a className="underline" href="https://github.com/matt-carmo">Matheus Carmo</a></p>
+    </footer>
+    </>
   );
 }
