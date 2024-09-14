@@ -31,12 +31,12 @@ export default function Home() {
   return (
     <>
     <main className="bg max-w-screen-md mx-auto px-10">
-      <h1 className="font-semibold text-center mt-10 text-xl text-">
+      <h1 className="font-semibold text-center mt-10 text-xl text-white">
         Calcular consumo de combustível
       </h1>
       <section className="mt-6 flex flex-col gap-3">
         <div>
-          <Label htmlFor="fuelPrice">Preço do combustível (R$)</Label>
+          <Label htmlFor="fuelPrice" className="text-white">Preço do combustível (R$)</Label>
           <Input
             type="number"
             className="outline-none border-none bg-gray-800 bg-opacity-50 text-white"
@@ -47,7 +47,7 @@ export default function Home() {
           />
         </div>
         <div>
-          <Label htmlFor="consumption">Média de consumo</Label>
+          <Label htmlFor="consumption" className="text-white">Média de consumo</Label>
           <Input
             type="number"
             id="consumption"
@@ -58,7 +58,7 @@ export default function Home() {
           />
         </div>
         <div>
-          <Label htmlFor="distance">Distância percorrida (km)</Label>
+          <Label htmlFor="distance" className="text-white">Distância percorrida (km)</Label>
           <Input
             type="number"
             className="outline-none border-none bg-gray-800 bg-opacity-50 text-white"
@@ -69,19 +69,24 @@ export default function Home() {
           />
         </div>
         <Button className="w-full mt-2 bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-md" onClick={calcularGasto}>Calcular</Button>
-
+  
         {error && <p className="text-red-400">{error}</p>}
-
+  
         {totalCost && (
         <div className="result">
-          <h2 className="text-md font-medium">Você gastou: <span className="text-green-500 font-semibold text-lg">R$ {totalCost}</span> de combustível</h2>
+          <h2 className="text-md font-medium text-white">
+            Você gastou: <span className="text-green-500 font-semibold text-lg">R$ {totalCost}</span> de combustível
+          </h2>
         </div>
-      )}
+        )}
       </section>
     </main>
     <footer className="fixed bottom-4 w-full text-center border-t border-opacity-15 border-gray-600 pt-4">
-      <p className="text-center text-sm font-light">Make with ❤️ by <a className="underline" href="https://github.com/matt-carmo">Matheus Carmo</a></p>
+      <p className="text-center text-sm font-light text-white">
+        Make with ❤️ by <a className="underline text-white" href="https://github.com/matt-carmo">Matheus Carmo</a>
+      </p>
     </footer>
-    </>
+  </>
+  
   );
 }
